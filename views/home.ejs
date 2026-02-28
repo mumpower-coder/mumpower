@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mumpower — Accueil</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+       <div class="sidebar-logo">mumpower</div>
+    <nav>
+      <a href="/home" class="nav-item"><i class="fas fa-home"></i><span>Accueil</span></a>
+      <a href="/recherche" class="nav-item active"><i class="fas fa-search"></i><span>Recherche</span></a>
+      <a href="/marketplace" class="nav-item"><i class="fas fa-store"></i><span>Vente</span></a>
+      <a href="/messages" class="nav-item"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
+      <a href="/notifications" class="nav-item"><i class="fas fa-bell"></i><span>Notifications</span></a>
+      <a href="/profil" class="nav-item"><i class="fas fa-user"></i><span>Mon profil</span></a>
+      <a href="/parametres" class="nav-item"><i class="fas fa-cog"></i><span>Paramètres</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" class="nav-item aide"><i class="fas fa-shield-heart"></i><span>Aide discrète</span></a>
+      <a href="/aide" class="nav-item aide"><i class="fas fa-shield-heart"></i><span>Aide discrète</span></a>
+      <a href="/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
+    </div>
+  </aside>
+
+  <main class="feed">
+    <!-- STORIES -->
+<div class="stories-bar">
+  <div class="story-item">
+    <label for="story-input" class="story-add-label">
+      <div class="story-avatar-add"><i class="fas fa-plus"></i></div>
+      <span>Ma story</span>
+    </label>
+    <form action="/story/publier" method="POST" enctype="multipart/form-data" id="story-form">
+      <input type="file" id="story-input" name="photo" accept="image/*" style="display:none;"
+        onchange="document.getElementById('story-form').submit()" />
+    </form>
+  </div>
+
+  <% stories.forEach(function(story) { %>
+    <div class="story-item">
+      <a href="/story/<%= story._id %>" class="story-link">
+        <div class="story-avatar-ring <%= story.vues.map(function(v){ return v.toString(); }).includes(userId) ? 'vue' : '' %>">
+          <img src="<%= story.photo %>" alt="<%= story.auteur %>" />
+        </div>
+        <span><%= story.auteur.split(' ')[0] %></span>
+      </a>
+    </div>
+  <% }); %>
+</div>
+
+    <div class="publish-box">
+      <div class="publish-avatar"><i class="fas fa-user"></i></div>
+      <form action="/post" method="POST">
+        <input type="text" name="content" placeholder="Partage quelque chose, <%= userName %> 💜" required />
+        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+
+    <% if (posts.length === 0) { %>
+      <div class="empty-feed">
+        <i class="fas fa-seedling"></i>
+        <h3>La communauté se construit ici</h3>
+        <p>Sois la première à partager quelque chose 💜</p>
+      </div>
+    <% } else { %>
+      <% posts.forEach(function(post) { %>
+        <% var nbLikes = post.likes ? post.likes.length : 0; %>
+        <% var nbComs = post.commentaires ? post.commentaires.length : 0; %>
+        <% var likeIds = post.likes ? post.likes.map(function(l){ return l.toString(); }) : []; %>
+        <% var estLike = likeIds.includes(userId); %>
+
+        <div class="post-card">
+
+          <div class="post-header">
+            <div class="post-avatar"><i class="fas fa-user"></i></div>
+            <div class="post-meta">
+              <strong><%= post.auteur %></strong>
+              <span><%= new Date(post.createdAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) %></span>
+            </div>
+            <% if (post.userId && post.userId.toString() === userId) { %>
+              <form action="/post/delete/<%= post._id %>" method="POST" style="margin-left:auto;">
+                <button class="btn-delete"><i class="fas fa-trash"></i></button>
+              </form>
+            <% } %>
+          </div>
+
+          <p class="post-content"><%= post.content %></p>
+
+          <div class="post-counts">
+            <span><i class="fas fa-heart"></i> <%= nbLikes %> j'aime</span>
+            <span><i class="fas fa-comment"></i> <%= nbComs %> commentaire<% if (nbComs > 1) { %>s<% } %></span>
+          </div>
+
+          <div class="post-actions">
+            <form action="/post/like/<%= post._id %>" method="POST">
+              <button class="<% if (estLike) { %>liked<% } %>">
+                <i class="fas fa-heart"></i>
+                <% if (estLike) { %>Aimé<% } else { %>J'aime<% } %>
+              </button>
+            </form>
+            <button type="button" onclick="toggleComments('<%= post._id %>')">
+              <i class="fas fa-comment"></i> Commenter
+            </button>
+          </div>
+
+          <div class="comments-section" id="comments-<%= post._id %>" style="display: <%= nbComs > 0 ? 'block' : 'none' %>;">
+            <% if (post.commentaires && post.commentaires.length > 0) { %>
+              <div class="comments-list">
+                <% post.commentaires.forEach(function(com) { %>
+                  <div class="comment">
+                    <div class="comment-avatar"><i class="fas fa-user"></i></div>
+                    <div class="comment-body">
+                      <strong><%= com.auteur %></strong>
+                      <p><%= com.contenu %></p>
+                    </div>
+                    <% if (com.auteurId && com.auteurId.toString() === userId) { %>
+                      <form action="/post/comment/delete/<%= post._id %>/<%= com._id %>" method="POST">
+                        <button class="btn-delete-sm"><i class="fas fa-times"></i></button>
+                      </form>
+                    <% } %>
+                  </div>
+                <% }); %>
+              </div>
+            <% } %>
+            <form action="/post/commenter/<%= post._id %>" method="POST" class="comment-form">
+              <input type="text" name="contenu" placeholder="Écris un commentaire..." required />
+              <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+          </div>
+
+        </div>
+      <% }); %>
+    <% } %>
+
+  </main>
+
+  <aside class="right-panel">
+    <div class="panel-section">
+      <h3>Bienvenue <%= userName %> 👋</h3>
+      <p class="welcome-text">Tu fais partie des premiers membres de Mumpower. Merci d'être là 💜</p>
+    </div>
+    <div class="panel-section">
+      <h3>Que faire ici ?</h3>
+      <div class="tip"><i class="fas fa-pen"></i> Publie une première pensée</div>
+      <div class="tip"><i class="fas fa-store"></i> Vends des articles</div>
+      <div class="tip"><i class="fas fa-comment-dots"></i> Envoie un message</div>
+    </div>
+  </aside>
+
+  <script>
+    function toggleComments(postId) {
+      var section = document.getElementById("comments-" + postId);
+      section.style.display = section.style.display === "none" ? "block" : "none";
+    }
+  </script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+  socket.emit("rejoindre", "<%= userId %>");
+
+  socket.on("nouvelle-notif", function(data) {
+    const toast = document.getElementById("toast");
+    document.getElementById("toast-msg").textContent = data.message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 4000);
+  });
+
+  function toggleComments(postId) {
+    var section = document.getElementById("comments-" + postId);
+    section.style.display = section.style.display === "none" ? "block" : "none";
+  }
+</script>
+
+<div class="toast" id="toast">
+  <i class="fas fa-bell"></i>
+  <span id="toast-msg"></span>
+</div>
+</body>
+</html>

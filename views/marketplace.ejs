@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mumpower — Vente</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/marketplace.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+        <div class="sidebar-logo">mumpower</div>
+    <nav>
+      <a href="/home" class="nav-item"><i class="fas fa-home"></i><span>Accueil</span></a>
+      <a href="/recherche" class="nav-item active"><i class="fas fa-search"></i><span>Recherche</span></a>
+      <a href="/marketplace" class="nav-item"><i class="fas fa-store"></i><span>Vente</span></a>
+      <a href="/messages" class="nav-item"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
+      <a href="/notifications" class="nav-item"><i class="fas fa-bell"></i><span>Notifications</span></a>
+      <a href="/profil" class="nav-item"><i class="fas fa-user"></i><span>Mon profil</span></a>
+      <a href="/parametres" class="nav-item"><i class="fas fa-cog"></i><span>Paramètres</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" class="nav-item aide"><i class="fas fa-shield-heart"></i><span>Aide discrète</span></a>
+      <a href="/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
+    </div>
+  </aside>
+
+  <main class="market-main">
+
+    <!-- HEADER -->
+    <div class="market-header">
+      <div>
+        <h1>Espace Vente</h1>
+        <p>Achète et vends entre parents de la communauté</p>
+      </div>
+      <button class="btn-vendre" onclick="toggleModal()">
+        <i class="fas fa-plus"></i> Vendre un article
+      </button>
+    </div>
+
+    <!-- FILTRES -->
+    <div class="filtres">
+      <button class="filtre active" onclick="filtrer(this, '')">Tout</button>
+      <button class="filtre" onclick="filtrer(this, 'Vêtements')">👗 Vêtements</button>
+      <button class="filtre" onclick="filtrer(this, 'Jouets')">🧸 Jouets</button>
+      <button class="filtre" onclick="filtrer(this, 'Puériculture')">🍼 Puériculture</button>
+      <button class="filtre" onclick="filtrer(this, 'Livres')">📚 Livres</button>
+      <button class="filtre" onclick="filtrer(this, 'Autre')">📦 Autre</button>
+    </div>
+
+    <!-- GRILLE ARTICLES -->
+    <% if (articles.length === 0) { %>
+      <div class="empty-market">
+        <i class="fas fa-store"></i>
+        <h3>Aucun article pour l'instant</h3>
+        <p>Sois la première à vendre quelque chose 💜</p>
+      </div>
+    <% } else { %>
+      <div class="articles-grid">
+        <% articles.forEach(article => { %>
+          <div class="article-card" data-categorie="<%= article.categorie %>">
+            <div class="article-photo">
+              <% if (article.photo) { %>
+                <img src="<%= article.photo %>" alt="<%= article.titre %>" />
+              <% } else { %>
+                <div class="no-photo"><i class="fas fa-image"></i></div>
+              <% } %>
+            </div>
+            <div class="article-info">
+              <span class="article-categorie"><%= article.categorie %></span>
+              <h3><%= article.titre %></h3>
+              <p><%= article.description %></p>
+              <div class="article-footer">
+                <strong class="article-prix"><%= article.prix %> €</strong>
+                <span class="article-vendeur"><i class="fas fa-user"></i> <%= article.vendeur %></span>
+              </div>
+              <div class="article-actions">
+                <a href="/messages" class="btn-contacter">
+                  <i class="fas fa-comment-dots"></i> Contacter
+                </a>
+                <% if (article.vendeurId && article.vendeurId.toString() === userId) { %>
+                  <form action="/marketplace/delete/<%= article._id %>" method="POST">
+                    <button class="btn-delete"><i class="fas fa-trash"></i></button>
+                  </form>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+
+  </main>
+
+  <!-- MODAL VENDRE -->
+  <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Vendre un article</h2>
+        <button onclick="toggleModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <form action="/marketplace/vendre" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label>Titre de l'annonce</label>
+          <input type="text" name="titre" placeholder="Ex: Robe bébé 6 mois" required />
+        </div>
+        <div class="form-group">
+          <label>Catégorie</label>
+          <select name="categorie">
+            <option>Vêtements</option>
+            <option>Jouets</option>
+            <option>Puériculture</option>
+            <option>Livres</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" placeholder="État, taille, détails..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Prix (€)</label>
+          <input type="number" name="prix" placeholder="0" min="0" required />
+        </div>
+        <div class="form-group">
+          <label>Photo</label>
+          <input type="file" name="photo" accept="image/*" />
+        </div>
+        <button type="submit" class="btn-submit">Publier l'annonce</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function toggleModal() {
+      document.getElementById("modal").classList.toggle("active");
+    }
+    function closeModal(e) {
+      if (e.target.id === "modal") toggleModal();
+    }
+    function filtrer(btn, cat) {
+      document.querySelectorAll(".filtre").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      document.querySelectorAll(".article-card").forEach(card => {
+        if (cat === "" || card.dataset.categorie === cat) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

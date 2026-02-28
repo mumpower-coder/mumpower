@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #F8D7E3;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.login-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 45px 40px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.07);
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.logo h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #5B2EFF;
+  letter-spacing: -1px;
+}
+
+.logo .tagline {
+  font-size: 13px;
+  color: #aaa;
+  margin-top: 5px;
+  font-weight: 300;
+}
+
+.input-group {
+  margin-bottom: 14px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #2A2A2A;
+  background: #fafafa;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #5B2EFF;
+  background: #fff;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background: #5B2EFF;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-login:hover {
+  background: #4a22e0;
+  transform: translateY(-1px);
+}
+
+.separator {
+  text-align: center;
+  margin: 22px 0;
+  position: relative;
+}
+
+.separator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #efefef;
+}
+
+.separator span {
+  background: white;
+  padding: 0 12px;
+  color: #bbb;
+  font-size: 13px;
+  position: relative;
+}
+
+.btn-register {
+  display: block;
+  text-align: center;
+  padding: 13px;
+  border: 1.5px solid #5B2EFF;
+  border-radius: 12px;
+  color: #5B2EFF;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-register:hover {
+  background: #f3eeff;
+}
+
+.forgot {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.forgot a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.forgot a:hover {
+  color: #5B2EFF;
+}
+
+.error-msg {
+  background: #ffe0e0;
+  color: #cc0000;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 13px;
+  margin-bottom: 15px;
+  text-align: center;
+}

@@ -1,0 +1,250 @@
+.aide-main {
+  margin-left: 260px;
+  padding: 30px;
+  max-width: 750px;
+}
+
+/* BOUTON QUITTER */
+.btn-quitter {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #cc0000;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(204,0,0,0.3);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-quitter:hover {
+  background: #aa0000;
+  transform: translateY(-1px);
+}
+
+/* HERO */
+.aide-hero {
+  background: linear-gradient(135deg, #5B2EFF, #e75480);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  color: white;
+  margin-bottom: 24px;
+}
+
+.aide-hero-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.9;
+}
+
+.aide-hero h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.aide-hero p {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* URGENCE */
+.aide-urgence {
+  background: #fff5f5;
+  border: 2px solid #ffcdd2;
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.urgence-badge {
+  font-size: 14px;
+  font-weight: 700;
+  color: #cc0000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.btn-urgence {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #cc0000;
+  color: white;
+  text-decoration: none;
+  padding: 16px 20px;
+  border-radius: 14px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-urgence:hover {
+  background: #aa0000;
+  transform: translateY(-1px);
+}
+
+.btn-urgence.samu { background: #e67e00; }
+.btn-urgence.samu:hover { background: #cc6f00; }
+
+.btn-urgence i {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.btn-urgence strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.btn-urgence span {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* SECTIONS */
+.aide-section {
+  margin-bottom: 24px;
+}
+
+.aide-section h2 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #2A2A2A;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.aide-section h2 i { color: #5B2EFF; }
+
+/* CARDS AIDE */
+.aide-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.aide-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border-left: 4px solid #5B2EFF;
+}
+
+.aide-card.rose { border-left-color: #e75480; }
+.aide-card.vert { border-left-color: #38B000; }
+.aide-card.bleu { border-left-color: #0066cc; }
+
+.aide-card-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: #f3eeff;
+  color: #5B2EFF;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.aide-card.rose .aide-card-icon { background: #fff0f5; color: #e75480; }
+.aide-card.vert .aide-card-icon { background: #f0fff0; color: #38B000; }
+.aide-card.bleu .aide-card-icon { background: #f0f4ff; color: #0066cc; }
+
+.aide-card-info { flex: 1; }
+.aide-card-info strong { display: block; font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.aide-card-info span { display: block; font-size: 13px; color: #5B2EFF; font-weight: 500; margin-bottom: 4px; }
+.aide-card.rose .aide-card-info span { color: #e75480; }
+.aide-card.vert .aide-card-info span { color: #38B000; }
+.aide-card.bleu .aide-card-info span { color: #0066cc; }
+.aide-card-info p { font-size: 13px; color: #888; line-height: 1.5; }
+
+.btn-appeler {
+  background: #5B2EFF;
+  color: white;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.aide-card.rose .btn-appeler { background: #e75480; }
+.aide-card.vert .btn-appeler { background: #38B000; }
+.aide-card.bleu .btn-appeler { background: #0066cc; }
+
+.btn-appeler:hover { opacity: 0.85; }
+
+/* SÉCURITÉ */
+.securite-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.securite-item {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.securite-item i {
+  color: #5B2EFF;
+  font-size: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.securite-item strong { display: block; font-size: 14px; margin-bottom: 4px; }
+.securite-item p { font-size: 13px; color: #888; line-height: 1.5; }
+
+/* MESSAGE FINAL */
+.aide-message {
+  background: linear-gradient(135deg, #f8f3ff, #fff0f5);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.aide-message i {
+  font-size: 32px;
+  color: #e75480;
+  flex-shrink: 0;
+}
+
+.aide-message p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+}

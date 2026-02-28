@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mumpower — Paramètres</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/parametres.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+        <div class="sidebar-logo">mumpower</div>
+    <nav>
+      <a href="/home" class="nav-item"><i class="fas fa-home"></i><span>Accueil</span></a>
+      <a href="/recherche" class="nav-item active"><i class="fas fa-search"></i><span>Recherche</span></a>
+      <a href="/marketplace" class="nav-item"><i class="fas fa-store"></i><span>Vente</span></a>
+      <a href="/messages" class="nav-item"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
+      <a href="/notifications" class="nav-item"><i class="fas fa-bell"></i><span>Notifications</span></a>
+      <a href="/profil" class="nav-item"><i class="fas fa-user"></i><span>Mon profil</span></a>
+      <a href="/parametres" class="nav-item"><i class="fas fa-cog"></i><span>Paramètres</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" class="nav-item aide"><i class="fas fa-shield-heart"></i><span>Aide discrète</span></a>
+      <a href="/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
+    </div>
+  </aside>
+
+  <main class="param-main">
+
+    <div class="param-header">
+      <h1>Paramètres</h1>
+      <p>Gère ton compte et ta sécurité</p>
+    </div>
+
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert success"><i class="fas fa-check-circle"></i> <%= success %></div>
+    <% } %>
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert error"><i class="fas fa-exclamation-circle"></i> <%= error %></div>
+    <% } %>
+
+    <!-- INFOS COMPTE -->
+    <div class="param-card">
+      <div class="param-card-header">
+        <i class="fas fa-user-circle"></i>
+        <div>
+          <h2>Informations du compte</h2>
+          <p>Tes informations de connexion actuelles</p>
+        </div>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Nom</span>
+        <span class="info-value"><%= user.nom %></span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Email</span>
+        <span class="info-value"><%= user.email %></span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Membre depuis</span>
+        <span class="info-value"><%= new Date(user.createdAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) %></span>
+      </div>
+    </div>
+
+    <!-- CHANGER EMAIL -->
+    <div class="param-card">
+      <div class="param-card-header">
+        <i class="fas fa-envelope"></i>
+        <div>
+          <h2>Changer l'email</h2>
+          <p>Mets à jour ton adresse email</p>
+        </div>
+      </div>
+      <form action="/parametres/email" method="POST">
+        <div class="form-group">
+          <label>Nouvel email</label>
+          <input type="email" name="email" placeholder="nouveau@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>Confirme ton mot de passe</label>
+          <input type="password" name="password" placeholder="Mot de passe actuel" required />
+        </div>
+        <button type="submit" class="btn-save">
+          <i class="fas fa-save"></i> Mettre à jour
+        </button>
+      </form>
+    </div>
+
+    <!-- CHANGER MOT DE PASSE -->
+    <div class="param-card">
+      <div class="param-card-header">
+        <i class="fas fa-lock"></i>
+        <div>
+          <h2>Changer le mot de passe</h2>
+          <p>Utilise un mot de passe fort et unique</p>
+        </div>
+      </div>
+      <form action="/parametres/password" method="POST">
+        <div class="form-group">
+          <label>Ancien mot de passe</label>
+          <input type="password" name="ancien" placeholder="Ancien mot de passe" required />
+        </div>
+        <div class="form-group">
+          <label>Nouveau mot de passe</label>
+          <input type="password" name="nouveau" placeholder="6 caractères minimum" required />
+        </div>
+        <div class="form-group">
+          <label>Confirmer le nouveau mot de passe</label>
+          <input type="password" name="confirmer" placeholder="Répète le nouveau mot de passe" required />
+        </div>
+        <button type="submit" class="btn-save">
+          <i class="fas fa-lock"></i> Changer le mot de passe
+        </button>
+      </form>
+    </div>
+
+    <!-- SÉCURITÉ -->
+    <div class="param-card">
+      <div class="param-card-header">
+        <i class="fas fa-shield-alt"></i>
+        <div>
+          <h2>Sécurité</h2>
+          <p>Conseils pour protéger ton compte</p>
+        </div>
+      </div>
+      <div class="securite-tips">
+        <div class="tip-row">
+          <i class="fas fa-check-circle"></i>
+          <span>Utilise un mot de passe unique pour Mumpower</span>
+        </div>
+        <div class="tip-row">
+          <i class="fas fa-check-circle"></i>
+          <span>Ne partage jamais ton mot de passe</span>
+        </div>
+        <div class="tip-row">
+          <i class="fas fa-check-circle"></i>
+          <span>Déconnecte-toi sur les appareils partagés</span>
+        </div>
+        <div class="tip-row">
+          <i class="fas fa-check-circle"></i>
+          <span>Signale tout comportement suspect</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DANGER ZONE -->
+    <div class="param-card danger">
+      <div class="param-card-header">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>
+          <h2>Zone dangereuse</h2>
+          <p>Actions irréversibles sur ton compte</p>
+        </div>
+      </div>
+      <p class="danger-text">
+        La suppression de ton compte est définitive. Toutes tes publications et annonces seront supprimées.
+      </p>
+      <button class="btn-danger" onclick="toggleSuppression()">
+        <i class="fas fa-trash"></i> Supprimer mon compte
+      </button>
+
+      <div id="suppression-form" style="display:none; margin-top:20px;">
+        <form action="/parametres/supprimer" method="POST">
+          <div class="form-group">
+            <label>Confirme ton mot de passe pour supprimer</label>
+            <input type="password" name="password" placeholder="Mot de passe" required />
+          </div>
+          <button type="submit" class="btn-danger-confirm">
+            <i class="fas fa-trash"></i> Oui, supprimer définitivement
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleSuppression() {
+      var form = document.getElementById("suppression-form");
+      form.style.display = form.style.display === "none" ? "block" : "none";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mumpower — Inscription</title>
+  <link rel="stylesheet" href="/css/login.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+
+      <div class="logo">
+        <h1>mumpower</h1>
+        <p class="tagline">Rejoins la communauté des parents modernes</p>
+      </div>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-msg"><%= error %></div>
+      <% } %>
+
+      <form action="/register" method="POST">
+        <div class="input-group">
+          <input type="text" name="nom" placeholder="Ton prénom" required />
+        </div>
+        <div class="input-group">
+          <input type="email" name="email" placeholder="Adresse e-mail" required />
+        </div>
+        <div class="input-group">
+          <input type="password" name="password" placeholder="Mot de passe" required />
+        </div>
+        <button type="submit" class="btn-login">Créer mon compte</button>
+      </form>
+
+      <div class="separator"><span>ou</span></div>
+
+      <a href="/" class="btn-register">J'ai déjà un compte</a>
+
+    </div>
+  </div>
+</body>
+</html>

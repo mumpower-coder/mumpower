@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mumpower — Notifications</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/notifications.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+        <div class="sidebar-logo">mumpower</div>
+    <nav>
+      <a href="/home" class="nav-item"><i class="fas fa-home"></i><span>Accueil</span></a>
+      <a href="/recherche" class="nav-item active"><i class="fas fa-search"></i><span>Recherche</span></a>
+      <a href="/marketplace" class="nav-item"><i class="fas fa-store"></i><span>Vente</span></a>
+      <a href="/messages" class="nav-item"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
+      <a href="/notifications" class="nav-item"><i class="fas fa-bell"></i><span>Notifications</span></a>
+      <a href="/profil" class="nav-item"><i class="fas fa-user"></i><span>Mon profil</span></a>
+      <a href="/parametres" class="nav-item"><i class="fas fa-cog"></i><span>Paramètres</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" class="nav-item aide"><i class="fas fa-shield-heart"></i><span>Aide discrète</span></a>
+      <a href="/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
+    </div>
+  </aside>
+
+  <main class="notif-main">
+    <div class="notif-header">
+      <h1>Notifications</h1>
+      <p>Tes dernières activités</p>
+    </div>
+
+    <% if (notifs.length === 0) { %>
+      <div class="notif-empty">
+        <i class="fas fa-bell"></i>
+        <h3>Aucune notification</h3>
+        <p>Tes notifications apparaîtront ici 💜</p>
+      </div>
+    <% } else { %>
+      <div class="notif-list">
+        <% notifs.forEach(function(notif) { %>
+          <a href="<%= notif.lien %>" class="notif-item <%= notif.lu ? '' : 'non-lue' %>">
+            <div class="notif-icon notif-<%= notif.type %>">
+              <% if (notif.type === 'like') { %><i class="fas fa-heart"></i>
+              <% } else if (notif.type === 'commentaire') { %><i class="fas fa-comment"></i>
+              <% } else { %><i class="fas fa-comment-dots"></i><% } %>
+            </div>
+            <div class="notif-content">
+              <p><%= notif.message %></p>
+              <span><%= new Date(notif.createdAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }) %></span>
+            </div>
+            <% if (!notif.lu) { %><div class="notif-dot"></div><% } %>
+          </a>
+        <% }); %>
+      </div>
+    <% } %>
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast">
+    <i class="fas fa-bell"></i>
+    <span id="toast-msg"></span>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.emit("rejoindre", "<%= userId %>");
+
+    socket.on("nouvelle-notif", function(data) {
+      const toast = document.getElementById("toast");
+      document.getElementById("toast-msg").textContent = data.message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 4000);
+      updateBadge();
+    });
+
+    function updateBadge() {
+      fetch("/notifications/count")
+        .then(r => r.json())
+        .then(data => {
+          const badge = document.getElementById("notif-badge");
+          if (badge) badge.textContent = data.count > 0 ? data.count : "";
+        });
+    }
+  </script>
+
+</body>
+</html>

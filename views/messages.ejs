@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mumpower — Messages</title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/messages.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+        <div class="sidebar-logo">mumpower</div>
+    <nav>
+      <a href="/home" class="nav-item"><i class="fas fa-home"></i><span>Accueil</span></a>
+      <a href="/recherche" class="nav-item active"><i class="fas fa-search"></i><span>Recherche</span></a>
+      <a href="/marketplace" class="nav-item"><i class="fas fa-store"></i><span>Vente</span></a>
+      <a href="/messages" class="nav-item"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
+      <a href="/notifications" class="nav-item"><i class="fas fa-bell"></i><span>Notifications</span></a>
+      <a href="/profil" class="nav-item"><i class="fas fa-user"></i><span>Mon profil</span></a>
+      <a href="/parametres" class="nav-item"><i class="fas fa-cog"></i><span>Paramètres</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="#" class="nav-item aide"><i class="fas fa-shield-heart"></i><span>Aide discrète</span></a>
+      <a href="/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
+    </div>
+  </aside>
+
+  <main class="msg-main">
+
+    <!-- COLONNE GAUCHE : conversations -->
+    <div class="conv-list">
+      <div class="conv-header">
+        <h2>Messages</h2>
+        <button class="btn-nouvelle" onclick="toggleModal()">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+
+      <% if (conversations.length === 0) { %>
+        <div class="conv-empty">
+          <i class="fas fa-comment-dots"></i>
+          <p>Aucune conversation</p>
+        </div>
+      <% } else { %>
+        <% conversations.forEach(conv => { %>
+          <a href="/messages/<%= conv.id %>" class="conv-item <%= convActive && convActive.id === conv.id ? 'active' : '' %>">
+            <div class="conv-avatar"><i class="fas fa-user"></i></div>
+            <div class="conv-info">
+              <strong><%= conv.nom %></strong>
+              <span><%= conv.dernierMsg.length > 35 ? conv.dernierMsg.substring(0, 35) + '...' : conv.dernierMsg %></span>
+            </div>
+            <% if (conv.nonLu > 0) { %>
+              <div class="conv-badge"><%= conv.nonLu %></div>
+            <% } %>
+          </a>
+        <% }) %>
+      <% } %>
+    </div>
+
+    <!-- COLONNE DROITE : discussion -->
+    <div class="discussion">
+      <% if (!convActive) { %>
+        <div class="discussion-empty">
+          <i class="fas fa-comment-dots"></i>
+          <h3>Tes messages</h3>
+          <p>Envoie un message à un membre de la communauté</p>
+          <button class="btn-vendre" onclick="toggleModal()">
+            <i class="fas fa-edit"></i> Nouvelle conversation
+          </button>
+        </div>
+      <% } else { %>
+        <div class="discussion-header">
+          <div class="conv-avatar"><i class="fas fa-user"></i></div>
+          <strong><%= convActive.nom %></strong>
+        </div>
+
+        <div class="messages-zone" id="messagesZone">
+          <% messagesConv.forEach(msg => { %>
+            <div class="msg-bubble <%= msg.de === userName ? 'moi' : 'autre' %>">
+              <p><%= msg.contenu %></p>
+              <span><%= new Date(msg.createdAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) %></span>
+            </div>
+          <% }) %>
+        </div>
+
+        <form class="msg-form" action="/messages/envoyer" method="POST">
+          <input type="hidden" name="aId" value="<%= convActive.id %>" />
+          <input type="text" name="contenu" placeholder="Écris un message..." required autocomplete="off" />
+          <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        </form>
+      <% } %>
+    </div>
+
+  </main>
+
+  <!-- MODAL NOUVELLE CONVERSATION -->
+  <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Nouvelle conversation</h2>
+        <button onclick="toggleModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <% if (users.length === 0) { %>
+        <p style="color:#aaa; font-size:14px; text-align:center; padding: 20px 0;">
+          Aucun autre membre pour l'instant
+        </p>
+      <% } else { %>
+        <div class="users-list">
+          <% users.forEach(u => { %>
+            <a href="/messages/<%= u._id %>" class="user-item" onclick="toggleModal()">
+              <div class="conv-avatar"><i class="fas fa-user"></i></div>
+              <span><%= u.nom %></span>
+              <i class="fas fa-chevron-right" style="margin-left:auto; color:#ccc;"></i>
+            </a>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+
+  <script>
+    function toggleModal() {
+      document.getElementById("modal").classList.toggle("active");
+    }
+    function closeModal(e) {
+      if (e.target.id === "modal") toggleModal();
+    }
+    // Scroll automatique vers le bas
+    const zone = document.getElementById("messagesZone");
+    if (zone) zone.scrollTop = zone.scrollHeight;
+  </script>
+
+</body>
+</html>
