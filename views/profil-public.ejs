@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mumpower — Profil de <%= profilUser.nom %></title>
+  <link rel="stylesheet" href="/css/home.css">
+  <link rel="stylesheet" href="/css/profil.css">
+  <link rel="stylesheet" href="/css/amis.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">mumpower</div>
+    <nav>
+      <a href="/home" class="nav-item"><i class="fas fa-home"></i><span>Accueil</span></a>
+      <a href="/recherche" class="nav-item"><i class="fas fa-search"></i><span>Recherche</span></a>
+      <a href="/marketplace" class="nav-item"><i class="fas fa-store"></i><span>Vente</span></a>
+      <a href="/messages" class="nav-item"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
+      <a href="/notifications" class="nav-item"><i class="fas fa-bell"></i><span>Notifications</span></a>
+      <a href="/profil" class="nav-item"><i class="fas fa-user"></i><span>Mon profil</span></a>
+      <a href="/amis" class="nav-item"><i class="fas fa-user-friends"></i><span>Amis</span></a>
+      <a href="/parametres" class="nav-item"><i class="fas fa-cog"></i><span>Paramètres</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="/aide" class="nav-item aide"><i class="fas fa-shield-heart"></i><span>Aide discrète</span></a>
+      <a href="/logout" class="nav-item logout"><i class="fas fa-sign-out-alt"></i><span>Déconnexion</span></a>
+    </div>
+  </aside>
+
+  <main class="profil-main">
+
+    <div class="profil-card">
+      <div class="profil-avatar-wrap">
+        <% if (profilUser.avatar) { %>
+          <img src="<%= profilUser.avatar %>" class="profil-avatar-img" />
+        <% } else { %>
+          <div class="profil-avatar-default"><i class="fas fa-user"></i></div>
+        <% } %>
+      </div>
+
+      <div class="profil-info">
+        <h1><%= profilUser.nom %></h1>
+        <% if (profilUser.bio) { %>
+          <p class="profil-bio"><%= profilUser.bio %></p>
+        <% } %>
+        <div class="profil-details">
+          <% if (profilUser.ville) { %>
+            <span><i class="fas fa-map-marker-alt"></i> <%= profilUser.ville %></span>
+          <% } %>
+          <% if (profilUser.enfants) { %>
+            <span><i class="fas fa-baby"></i> <%= profilUser.enfants %></span>
+          <% } %>
+          <span><i class="fas fa-user-friends"></i> <%= profilUser.amis.length %> ami<%= profilUser.amis.length > 1 ? 's' : '' %></span>
+        </div>
+      </div>
+
+      <div class="profil-public-actions">
+        <% if (estAmi) { %>
+          <a href="/messages/<%= profilUser._id %>" class="btn-action btn-message-profil">
+            <i class="fas fa-comment-dots"></i> Envoyer un message
+          </a>
+          <form action="/ami/supprimer/<%= profilUser._id %>" method="POST">
+            <button class="btn-action btn-supprimer-ami"><i class="fas fa-user-minus"></i> Retirer des amis</button>
+          </form>
+        <% } else if (demandeEnvoyee) { %>
+          <button class="btn-action btn-en-attente" disabled>
+            <i class="fas fa-clock"></i> Demande envoyée
+          </button>
+        <% } else if (demandeRecue) { %>
+          <form action="/ami/accepter/<%= profilUser._id %>" method="POST">
+            <button class="btn-action btn-accepter-profil"><i class="fas fa-check"></i> Accepter la demande</button>
+          </form>
+          <form action="/ami/refuser/<%= profilUser._id %>" method="POST">
+            <button class="btn-action btn-refuser-profil"><i class="fas fa-times"></i> Refuser</button>
+          </form>
+        <% } else { %>
+          <form action="/ami/demande/<%= profilUser._id %>" method="POST">
+            <button class="btn-action btn-ajouter-ami"><i class="fas fa-user-plus"></i> Ajouter en ami</button>
+          </form>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="profil-stats">
+      <div class="stat-card">
+        <strong><%= posts.length %></strong>
+        <span>Publications</span>
+      </div>
+      <div class="stat-card">
+        <strong><%= profilUser.amis.length %></strong>
+        <span>Amis</span>
+      </div>
+    </div>
+
+    <div class="profil-tabs">
+      <button class="tab active"><i class="fas fa-th"></i> Publications</button>
+    </div>
+
+    <div class="tab-content">
+      <% if (posts.length === 0) { %>
+        <div class="tab-empty">
+          <i class="fas fa-seedling"></i>
+          <p>Aucune publication pour l'instant</p>
+        </div>
+      <% } else { %>
+        <% posts.forEach(function(post) { %>
+          <div class="post-card">
+            <div class="post-header">
+              <div class="post-avatar"><i class="fas fa-user"></i></div>
+              <div class="post-meta">
+                <strong><%= post.auteur %></strong>
+                <span><%= new Date(post.createdAt).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }) %></span>
+              </div>
+            </div>
+            <p class="post-content"><%= post.content %></p>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+
+  </main>
+
+  <div class="toast" id="toast">
+    <i class="fas fa-bell"></i>
+    <span id="toast-msg"></span>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.emit("rejoindre", "<%= userId %>");
+    socket.on("nouvelle-notif", function(data) {
+      const toast = document.getElementById("toast");
+      document.getElementById("toast-msg").textContent = data.message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 4000);
+    });
+  </script>
+
+</body>
+</html>

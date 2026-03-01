@@ -15,6 +15,8 @@
     <div class="sidebar-logo">mumpower</div>
     <nav>
       <a href="/home" class="nav-item"><i class="fas fa-home"></i><span>Accueil</span></a>
+      
+      <a href="/amis" class="nav-item"><i class="fas fa-user-friends"></i><span>Amis</span></a>
       <a href="/recherche" class="nav-item active"><i class="fas fa-search"></i><span>Recherche</span></a>
       <a href="/marketplace" class="nav-item"><i class="fas fa-store"></i><span>Vente</span></a>
       <a href="/messages" class="nav-item"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
@@ -83,9 +85,12 @@
                     <p><%= user.bio.length > 60 ? user.bio.substring(0, 60) + '...' : user.bio %></p>
                   <% } %>
                 </div>
-                <a href="/messages/<%= user._id %>" class="btn-contacter-user">
-                  <i class="fas fa-comment-dots"></i> Message
-                </a>
+               <a href="/profil/<%= user._id %>" class="btn-voir-profil">
+  <i class="fas fa-user"></i> Voir le profil
+</a>
+<a href="/messages/<%= user._id %>" class="btn-contacter-user">
+  <i class="fas fa-comment-dots"></i> Message
+</a>
               </div>
             <% }); %>
           </div>
