@@ -24,10 +24,16 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-mmongoose.connect("mongodb+srv://florianvoisin_db_user:YCuavJqKcaIor6oX@mumpower.0yc2gfo.mongodb.net/mumpower?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://florianvoisin_db_user:YCuavJqKcaIor6oX@mumpower.0yc2gfo.mongodb.net/mumpower?retryWrites=true&w=majority")
   .then(() => console.log("MongoDB connecté"))
   .catch(err => console.log(err));
 
+// Session
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -520,4 +526,5 @@ app.get("/aide", requireAuth, (req, res) => {
 app.get("/landing", (req, res) => {
   res.render("landing");
 });
+app.get("/health", (req, res) => res.send("OK"));
 server.listen(3000, () => console.log("Serveur lancé sur http://localhost:3000"));
