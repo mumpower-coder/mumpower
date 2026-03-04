@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+    🌸 MUMPOWER — FICHIER UNIQUE
+    Pour activer la maintenance  → MAINTENANCE_MODE = true
+    Pour afficher le landing     → MAINTENANCE_MODE = false
+  ============================================================ -->
+  <script>
+    const MAINTENANCE_MODE = false; // ← changer ici uniquement
+  </script>
+
+  <title>Mumpower — Parce qu'aucune maman ne devrait avancer seule</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose-pastel: #FADADD;
+      --rose-poudre: #F8C8DC;
+      --rose-accent: #E8A0BF;
+      --rose-deep: #D4749A;
+      --blanc: #FFFFFF;
+      --gris: #6B6B6B;
+      --noir: #2E2E2E;
+      --rose-ultra-light: #FFF5F7;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--blanc);
+      color: var(--noir);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 5%;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(248,200,220,0.3);
+    }
+    .logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 1.4rem; font-weight: 700; color: var(--noir);
+      text-decoration: none;
+    }
+    .logo-flower { font-size: 1.6rem; }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--gris);
+      font-size: 0.88rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--rose-deep); }
+    .nav-cta {
+      background: var(--rose-accent);
+      color: white !important;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--rose-deep) !important; transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 8rem 5% 4rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: 
+        radial-gradient(ellipse 80% 60% at 70% 40%, #FFF0F3 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, #FADADD55 0%, transparent 60%),
+        var(--blanc);
+    }
+    .petals-container {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    }
+    .petal {
+      position: absolute;
+      font-size: 1.2rem;
+      opacity: 0.35;
+      animation: floatPetal linear infinite;
+    }
+    @keyframes floatPetal {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.4; }
+      90%  { opacity: 0.3; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 640px;
+      animation: fadeUp 0.9s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: white; border: 1.5px solid var(--rose-poudre);
+      color: var(--rose-deep); font-size: 0.78rem; font-weight: 600;
+      padding: 0.4rem 1rem; border-radius: 50px;
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(232,160,191,0.15);
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 5.5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--noir);
+      margin-bottom: 1.4rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--rose-deep);
+    }
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 400;
+      color: var(--gris); line-height: 1.75;
+      margin-bottom: 2.4rem;
+      max-width: 520px;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--rose-accent), var(--rose-deep));
+      color: white; border: none; cursor: pointer;
+      padding: 0.9rem 2.2rem; border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem; font-weight: 600;
+      box-shadow: 0 8px 28px rgba(212,116,154,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(212,116,154,0.45); }
+    .btn-secondary {
+      color: var(--gris); font-size: 0.9rem; font-weight: 500;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .btn-secondary:hover { color: var(--rose-deep); }
+    .hero-launch {
+      margin-top: 2.4rem;
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.82rem; color: var(--gris);
+    }
+    .launch-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--rose-accent);
+      box-shadow: 0 0 0 3px rgba(232,160,191,0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(232,160,191,0.3); }
+      50% { box-shadow: 0 0 0 7px rgba(232,160,191,0.1); }
+    }
+
+    /* Hero image mockup */
+    .hero-visual {
+      position: absolute; right: 3%; top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      animation: fadeUp 1.1s 0.2s ease both;
+      width: min(48%, 520px);
+    }
+    .phone-mockup {
+      width: 100%;
+      filter: drop-shadow(0 40px 80px rgba(212,116,154,0.22));
+    }
+    .mockup-wrap {
+      position: relative;
+    }
+    .mockup-card {
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(212,116,154,0.18), 0 4px 20px rgba(0,0,0,0.06);
+      overflow: hidden;
+      border: 2px solid rgba(248,200,220,0.4);
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .mockup-header {
+      background: linear-gradient(135deg, var(--rose-pastel), var(--rose-poudre));
+      padding: 1.5rem 1.4rem 1rem;
+    }
+    .mockup-avatar-row {
+      display: flex; align-items: center; gap: 0.7rem;
+      margin-bottom: 0.8rem;
+    }
+    .mockup-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--rose-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: white;
+      font-weight: 700;
+    }
+    .mockup-name { font-size: 0.85rem; font-weight: 600; color: var(--noir); }
+    .mockup-status { font-size: 0.72rem; color: var(--gris); }
+    .mockup-post {
+      background: rgba(255,255,255,0.7);
+      border-radius: 14px; padding: 0.9rem 1rem;
+      font-size: 0.78rem; color: var(--noir); line-height: 1.5;
+    }
+    .mockup-body { padding: 1rem 1.2rem; }
+    .mockup-item {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.65rem 0.8rem;
+      border-radius: 12px;
+      margin-bottom: 0.5rem;
+      background: var(--rose-ultra-light);
+      font-size: 0.78rem; color: var(--noir);
+      font-weight: 500;
+    }
+    .mockup-item:last-child { margin-bottom: 0; }
+    .mi-icon { font-size: 1rem; }
+    .floating-badge {
+      position: absolute;
+      background: white;
+      border-radius: 14px;
+      padding: 0.6rem 1rem;
+      font-size: 0.76rem; font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      display: flex; align-items: center; gap: 0.5rem;
+      color: var(--noir);
+      border: 1.5px solid rgba(248,200,220,0.5);
+      animation: floatBadge 3s ease-in-out infinite;
+    }
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .badge-1 { top: 8%; right: -8%; animation-delay: 0s; }
+    .badge-2 { bottom: 20%; left: -10%; animation-delay: 1s; }
+    .badge-3 { bottom: 5%; right: 2%; animation-delay: 1.8s; }
+
+    /* ─── STATS ─── */
+    .stats {
+      background: white;
+      border-top: 1px solid rgba(250,218,221,0.5);
+      padding: 3rem 5%;
+    }
+    .stats-inner {
+      max-width: 900px; margin: 0 auto;
+      display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-size: 2.2rem; font-weight: 800; color: var(--rose-deep);
+      font-family: 'Playfair Display', serif;
+    }
+    .stat-label { font-size: 0.82rem; color: var(--gris); margin-top: 0.2rem; }
+
+    /* ─── FEATURES ─── */
+    .section-label {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--rose-deep);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700; line-height: 1.2;
+      color: var(--noir);
+      margin-bottom: 0.8rem;
+    }
+    .section-sub {
+      font-size: 0.95rem; color: var(--gris); line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .features {
+      padding: 6rem 5%;
+      background: var(--rose-ultra-light);
+      position: relative; overflow: hidden;
+    }
+    .features::before {
+      content: '';
+      position: absolute; top: -60px; left: -60px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, #FADADD55, transparent 70%);
+    }
+    .features-header {
+      text-align: center; margin-bottom: 4rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 24px;
+      padding: 2rem;
+      border: 1.5px solid rgba(248,200,220,0.35);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute; bottom: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at bottom right, var(--rose-pastel) 0%, transparent 70%);
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(212,116,154,0.15);
+    }
+    .feature-card.highlight {
+      background: linear-gradient(135deg, var(--rose-deep), #C25A85);
+      border-color: transparent;
+      color: white;
+    }
+    .feature-card.highlight::after { display: none; }
+    .feature-card.highlight .feature-title,
+    .feature-card.highlight .feature-desc { color: white; }
+    .feature-card.highlight .feature-desc { opacity: 0.85; }
+    .feature-icon {
+      font-size: 2rem; margin-bottom: 1.2rem;
+      display: block;
+    }
+    .feature-title {
+      font-size: 1rem; font-weight: 700;
+      color: var(--noir); margin-bottom: 0.6rem;
+    }
+    .feature-desc {
+      font-size: 0.85rem; color: var(--gris); line-height: 1.65;
+    }
+    .feature-tag {
+      display: inline-block; margin-top: 1rem;
+      background: rgba(255,255,255,0.25);
+      color: white; font-size: 0.72rem; font-weight: 600;
+      padding: 0.3rem 0.8rem; border-radius: 50px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── EMOTIONAL ─── */
+    .emotional {
+      padding: 6rem 5%;
+      background: white;
+    }
+    .emotional-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      align-items: center;
+    }
+    .emotional-quotes {
+      display: flex; flex-direction: column; gap: 1.2rem;
+    }
+    .quote-card {
+      background: var(--rose-ultra-light);
+      border-left: 3px solid var(--rose-accent);
+      border-radius: 0 16px 16px 0;
+      padding: 1.2rem 1.4rem;
+      font-size: 0.9rem; color: var(--noir); line-height: 1.65;
+      font-style: italic;
+      transition: transform 0.2s;
+    }
+    .quote-card:hover { transform: translateX(4px); }
+    .quote-author {
+      font-size: 0.75rem; color: var(--gris);
+      font-style: normal; font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    .emotional-text .section-sub { max-width: 100%; }
+    .values-list {
+      margin-top: 2rem; display: flex; flex-direction: column; gap: 0.8rem;
+    }
+    .value-item {
+      display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.88rem; color: var(--noir); font-weight: 500;
+    }
+    .value-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--rose-pastel);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+
+    /* ─── LAUNCH ─── */
+    .launch {
+      padding: 6rem 5%;
+      background: linear-gradient(135deg, #FADADD 0%, #F8C8DC 50%, #FADADD 100%);
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .launch::before {
+      content: '🌸';
+      position: absolute; font-size: 15rem; opacity: 0.07;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .launch-date {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--rose-deep);
+      margin-bottom: 0.8rem;
+    }
+    .launch-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      color: var(--noir); margin-bottom: 1.2rem; line-height: 1.2;
+    }
+    .launch-sub {
+      font-size: 1rem; color: var(--gris); margin-bottom: 2.4rem; line-height: 1.7;
+    }
+
+    /* ─── WAITLIST ─── */
+    .waitlist-form {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      max-width: 520px; margin: 0 auto 1.5rem;
+    }
+    .waitlist-row {
+      display: flex; gap: 0.8rem; flex-wrap: wrap;
+    }
+    .waitlist-row:last-child { flex-wrap: nowrap; }
+    .waitlist-input {
+      flex: 1; min-width: 140px;
+      padding: 0.9rem 1.4rem;
+      border-radius: 50px;
+      border: 2px solid rgba(232,160,191,0.4);
+      background: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem; color: var(--noir);
+      outline: none; transition: border-color 0.2s;
+    }
+    .waitlist-input:focus { border-color: var(--rose-accent); }
+    .waitlist-input::placeholder { color: #bbb; }
+    .success-msg {
+      display: none; color: var(--rose-deep); font-weight: 600;
+      font-size: 0.9rem; margin-top: 0.8rem;
+    }
+    .waitlist-note {
+      font-size: 0.78rem; color: var(--gris);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--noir);
+      color: white;
+      padding: 3rem 5%;
+      text-align: center;
+    }
+    .footer-logo {
+      font-size: 1.3rem; font-weight: 700;
+      color: white; margin-bottom: 1rem;
+    }
+    .footer-tagline {
+      font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      display: flex; gap: 2rem; justify-content: center;
+      list-style: none; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 0.8rem; color: rgba(255,255,255,0.45);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--rose-poudre); }
+    .footer-copy {
+      margin-top: 2rem;
+      font-size: 0.75rem; color: rgba(255,255,255,0.25);
+    }
+
+    /* ─── STORIES ─── */
+    .stories-section {
+      padding: 6rem 5%;
+      background: white;
+      overflow: hidden;
+    }
+    .stories-header { text-align: center; margin-bottom: 3.5rem; }
+    .stories-track {
+      display: flex; gap: 1rem;
+      overflow-x: auto; padding: 1rem 0.5rem 2rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .stories-track::-webkit-scrollbar { display: none; }
+    .story-bubble {
+      flex-shrink: 0; scroll-snap-align: start;
+      width: 110px; text-align: center; cursor: pointer;
+    }
+    .story-ring {
+      width: 82px; height: 82px; border-radius: 50%;
+      background: linear-gradient(135deg, #E8A0BF, #D4749A);
+      padding: 3px; margin: 0 auto 0.6rem;
+      transition: transform 0.2s;
+    }
+    .story-ring:hover { transform: scale(1.08); }
+    .story-ring.seen { background: #ddd; }
+    .story-avatar {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--rose-pastel);
+      border: 3px solid white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+    .story-name { font-size: 0.72rem; color: var(--noir); font-weight: 500; }
+    .story-add .story-ring { background: transparent; border: 2px dashed var(--rose-accent); padding: 0; }
+    .story-add .story-avatar { background: var(--rose-ultra-light); font-size: 1.6rem; }
+
+    /* Story modal */
+    .story-modal {
+      display: none; position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.88); align-items: center; justify-content: center;
+    }
+    .story-modal.open { display: flex; }
+    .story-viewer {
+      width: 320px; height: 570px; border-radius: 28px;
+      overflow: hidden; position: relative;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    }
+    .sv-bg { position: absolute; inset: 0; transition: background 0.4s; }
+    .story-progress {
+      display: flex; gap: 4px; padding: 10px 12px 0;
+      position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+    }
+    .spb { flex: 1; height: 3px; background: rgba(255,255,255,0.35); border-radius: 2px; overflow: hidden; }
+    .spb .fill { height: 100%; background: white; width: 0%; }
+    .spb.active .fill { animation: sFill 4s linear forwards; }
+    .spb.done .fill { width: 100%; }
+    @keyframes sFill { from { width:0% } to { width:100% } }
+    .sv-head {
+      position: absolute; top: 24px; left: 0; right: 0; z-index: 3;
+      display: flex; align-items: center; padding: 0 12px;
+      gap: 0.6rem;
+    }
+    .sv-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: white; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; border: 2px solid rgba(255,255,255,0.5);
+    }
+    .sv-name { color: white; font-size: 0.8rem; font-weight: 600; flex: 1; }
+    .sv-time { color: rgba(255,255,255,0.6); font-size: 0.68rem; }
+    .sv-close {
+      color: white; background: none; border: none;
+      font-size: 1.3rem; cursor: pointer; padding: 0.3rem; margin-left: auto;
+    }
+    .sv-content {
+      position: absolute; inset: 0; display: flex;
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: 2rem; text-align: center; z-index: 2;
+    }
+    .sv-emoji { font-size: 3.5rem; margin-bottom: 1rem; }
+    .sv-text { font-size: 1.2rem; font-weight: 700; color: white; line-height: 1.3; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+    .sv-sub { font-size: 0.82rem; color: rgba(255,255,255,0.8); margin-top: 0.5rem; }
+    .sv-nav { position: absolute; inset: 0; display: flex; z-index: 4; }
+    .sv-nav-l, .sv-nav-r { flex: 1; cursor: pointer; }
+
+    /* ─── FIL D'ACTUALITÉ ─── */
+    .feed-section {
+      padding: 6rem 5%;
+      background: var(--rose-ultra-light);
+    }
+    .feed-header { text-align: center; margin-bottom: 3.5rem; }
+    .feed-layout {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 360px; gap: 3rem;
+      align-items: start;
+    }
+    .feed-mockup {
+      background: white; border-radius: 24px;
+      border: 1.5px solid rgba(248,200,220,0.35);
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(212,116,154,0.1);
+    }
+    .feed-topbar {
+      background: linear-gradient(135deg, var(--rose-pastel), var(--rose-poudre));
+      padding: 1rem 1.2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .feed-topbar-title { font-size: 0.9rem; font-weight: 700; color: var(--noir); }
+    .feed-topbar-icons { display: flex; gap: 0.8rem; font-size: 1.1rem; }
+    .feed-stories-row {
+      display: flex; gap: 0.7rem; padding: 0.9rem 1.2rem;
+      overflow-x: auto; border-bottom: 1px solid rgba(248,200,220,0.3);
+      scrollbar-width: none;
+    }
+    .feed-stories-row::-webkit-scrollbar { display: none; }
+    .fsr-item { flex-shrink: 0; text-align: center; }
+    .fsr-ring {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, #E8A0BF, #D4749A);
+      padding: 2px; margin: 0 auto 0.3rem;
+    }
+    .fsr-ring.seen { background: #ddd; }
+    .fsr-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--rose-pastel); border: 2px solid white;
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .fsr-label { font-size: 0.6rem; color: var(--gris); }
+    .feed-post {
+      padding: 1rem 1.2rem;
+      border-bottom: 1px solid rgba(248,200,220,0.2);
+    }
+    .feed-post:last-child { border-bottom: none; }
+    .fpost-head {
+      display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.7rem;
+    }
+    .fpost-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: white; font-weight: 700; flex-shrink: 0;
+    }
+    .fpost-name { font-size: 0.78rem; font-weight: 600; color: var(--noir); }
+    .fpost-meta { font-size: 0.66rem; color: var(--gris); }
+    .fpost-badge {
+      margin-left: auto; font-size: 0.6rem; font-weight: 600;
+      padding: 0.15rem 0.5rem; border-radius: 20px;
+    }
+    .badge-social { background: #FFF0F3; color: var(--rose-deep); }
+    .badge-vente { background: #FFF8E1; color: #D4900A; }
+    .badge-aide { background: #F0FFF4; color: #2E7D32; }
+    .fpost-text { font-size: 0.78rem; color: var(--noir); line-height: 1.6; margin-bottom: 0.6rem; }
+    .fpost-img {
+      border-radius: 12px; overflow: hidden; margin-bottom: 0.6rem;
+      height: 90px; display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem;
+    }
+    .fpost-product {
+      display: flex; gap: 0.7rem; align-items: center;
+      background: var(--rose-ultra-light); border-radius: 12px;
+      padding: 0.6rem 0.8rem; margin-bottom: 0.6rem;
+    }
+    .fpost-prod-img {
+      width: 48px; height: 48px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .fpost-prod-name { font-size: 0.76rem; font-weight: 600; color: var(--noir); }
+    .fpost-prod-price { font-size: 0.74rem; color: var(--rose-deep); font-weight: 700; }
+    .fpost-prod-cond { font-size: 0.64rem; color: var(--gris); }
+    .fpost-actions { display: flex; gap: 1rem; }
+    .fpost-action {
+      font-size: 0.7rem; color: var(--gris);
+      display: flex; align-items: center; gap: 0.3rem;
+      cursor: pointer; transition: color 0.2s; user-select: none;
+    }
+    .fpost-action:hover, .fpost-action.liked { color: var(--rose-deep); }
+
+    /* Right column */
+    .feed-features-col { display: flex; flex-direction: column; gap: 1rem; }
+    .ffc-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.1rem 1.2rem;
+      background: white; border-radius: 18px;
+      border: 1.5px solid rgba(248,200,220,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ffc-item:hover { transform: translateX(5px); box-shadow: 0 8px 24px rgba(212,116,154,0.12); }
+    .ffc-icon {
+      width: 42px; height: 42px; border-radius: 13px;
+      background: var(--rose-pastel);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .ffc-title { font-size: 0.86rem; font-weight: 700; color: var(--noir); margin-bottom: 0.25rem; }
+    .ffc-desc { font-size: 0.76rem; color: var(--gris); line-height: 1.5; }
+
+    @media (max-width: 900px) {
+      .feed-layout { grid-template-columns: 1fr; }
+      .feed-features-col { display: grid; grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .feed-features-col { grid-template-columns: 1fr; }
+    }
+
+    /* ─── COUNTDOWN ─── */
+    .countdown-section {
+      padding: 5rem 5%;
+      background: var(--rose-ultra-light);
+      border-top: 1px solid rgba(250,218,221,0.5);
+    }
+    .countdown-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    .founder-badge {
+      margin-top: 1.8rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: white;
+      border: 1.5px solid rgba(232,160,191,0.4);
+      border-radius: 18px; padding: 1.1rem 1.3rem;
+      box-shadow: 0 8px 24px rgba(212,116,154,0.1);
+    }
+    .founder-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .founder-title { font-size: 0.88rem; font-weight: 700; color: var(--noir); margin-bottom: 0.3rem; }
+    .founder-sub { font-size: 0.78rem; color: var(--gris); line-height: 1.55; }
+
+    .countdown-grid {
+      display: flex; align-items: center; gap: 0.5rem;
+      justify-content: center;
+    }
+    .cd-block {
+      background: white;
+      border-radius: 20px;
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+      min-width: 88px;
+      border: 1.5px solid rgba(248,200,220,0.4);
+      box-shadow: 0 10px 30px rgba(212,116,154,0.1);
+      position: relative; overflow: hidden;
+    }
+    .cd-block::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(250,218,221,0.15), transparent);
+    }
+    .cd-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 700;
+      color: var(--rose-deep);
+      line-height: 1;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    .cd-number.flip {
+      transform: translateY(-4px);
+      opacity: 0.6;
+    }
+    .cd-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gris);
+      margin-top: 0.4rem;
+    }
+    .cd-sep {
+      font-size: 2rem; font-weight: 700; color: var(--rose-accent);
+      margin-bottom: 1.2rem; flex-shrink: 0;
+    }
+
+    .cd-progress-wrap { margin-top: 1.8rem; }
+    .cd-progress-bar {
+      height: 6px; background: rgba(232,160,191,0.2);
+      border-radius: 10px; overflow: hidden; margin-bottom: 0.5rem;
+    }
+    .cd-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--rose-accent), var(--rose-deep));
+      border-radius: 10px;
+      transition: width 1s ease;
+    }
+    .cd-progress-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.7rem; color: var(--gris);
+    }
+
+    @media (max-width: 900px) {
+      .countdown-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .countdown-right { order: -1; }
+      .cd-block { min-width: 72px; padding: 1rem; }
+      .cd-number { font-size: 2.2rem; }
+    }
+    @media (max-width: 480px) {
+      .cd-block { min-width: 60px; padding: 0.8rem 0.6rem; }
+      .cd-number { font-size: 1.8rem; }
+      .cd-sep { font-size: 1.4rem; }
+    }
+
+    /* ─── ANIMATIONS on scroll ─── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-visual { display: none; }
+      .hero-content { max-width: 100%; }
+      .emotional-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 7rem 5% 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo"><span class="logo-flower">🌸</span> Mumpower</a>
+    <ul class="nav-links">
+      <li><a href="#features">La plateforme</a></li>
+      <li><a href="#valeurs">Nos valeurs</a></li>
+      <li><a href="#rejoindre">Rejoindre</a></li>
+      <li><a href="#rejoindre" class="nav-cta">Rejoindre la communauté</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="petals-container" id="petals"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">🌸 Lancement le 8 mars 2027</div>
+      <h1 class="hero-title">
+        Parce qu'aucune maman<br>ne devrait avancer <em>seule.</em>
+      </h1>
+      <p class="hero-sub">
+        Mumpower est le premier espace digital pensé entièrement pour vous — mamans et futures mamans. Un réseau bienveillant, une marketplace entre membres, et un soutien discret quand vous en avez le plus besoin.
+      </p>
+      <div class="hero-actions">
+        <a href="#rejoindre" class="btn-primary">💗 Rejoindre la liste d'attente</a>
+        <a href="#features" class="btn-secondary">Découvrir la plateforme →</a>
+      </div>
+      <div class="hero-launch">
+        <div class="launch-dot"></div>
+        <span>Lancement officiel — <strong>8 mars 2027</strong>, Journée internationale des droits des femmes</span>
+      </div>
+    </div>
+
+    <!-- Mockup -->
+    <div class="hero-visual">
+      <div class="mockup-wrap">
+        <div class="mockup-card">
+          <div class="mockup-header">
+            <div class="mockup-avatar-row">
+              <div class="mockup-avatar">S</div>
+              <div>
+                <div class="mockup-name">Sophie M.</div>
+                <div class="mockup-status">🌸 Future maman · 7 mois</div>
+              </div>
+            </div>
+            <div class="mockup-post">
+              "J'ai enfin trouvé des mamans qui me comprennent vraiment. Mumpower, c'est ma bouffée d'air frais. 💗"
+            </div>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-item"><span class="mi-icon">📰</span> Fil d'actualité bienveillant</div>
+            <div class="mockup-item"><span class="mi-icon">🛍️</span> Vente entre mamans</div>
+            <div class="mockup-item"><span class="mi-icon">💌</span> Messagerie privée</div>
+            <div class="mockup-item"><span class="mi-icon">🆘</span> Aide discrète disponible</div>
+          </div>
+        </div>
+        <div class="floating-badge badge-1">💬 342 mamans en ligne</div>
+        <div class="floating-badge badge-2">🛍️ Nouveau : petite robe 3 mois</div>
+        <div class="floating-badge badge-3">💗 +2 800 membres</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section">
+    <div class="countdown-inner">
+      <div class="countdown-left reveal">
+        <span class="section-label">Lancement officiel</span>
+        <h2 class="section-title" style="margin-bottom:0.5rem;">Le 8 mars 2027,<br><em style="font-style:italic;color:var(--rose-deep)">tout commence.</em></h2>
+        <p style="font-size:0.88rem;color:var(--gris);line-height:1.7;margin-top:0.8rem;">Journée internationale des droits des femmes — une date symbolique et forte pour lancer le mouvement Mumpower.</p>
+        <div class="founder-badge">
+          <span class="founder-icon">🎁</span>
+          <div>
+            <div class="founder-title">Badge Fondatrice offert</div>
+            <div class="founder-sub">Pour les <strong>1 000 premières inscrites</strong> — un statut exclusif à vie sur la plateforme.</div>
+          </div>
+        </div>
+      </div>
+      <div class="countdown-right reveal">
+        <div class="countdown-grid" id="countdown">
+          <div class="cd-block">
+            <div class="cd-number" id="cd-days">—</div>
+            <div class="cd-label">Jours</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block">
+            <div class="cd-number" id="cd-hours">—</div>
+            <div class="cd-label">Heures</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block">
+            <div class="cd-number" id="cd-minutes">—</div>
+            <div class="cd-label">Minutes</div>
+          </div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block">
+            <div class="cd-number" id="cd-seconds">—</div>
+            <div class="cd-label">Secondes</div>
+          </div>
+        </div>
+        <div class="cd-progress-wrap">
+          <div class="cd-progress-bar"><div class="cd-progress-fill" id="cdProgressFill"></div></div>
+          <div class="cd-progress-labels">
+            <span>Aujourd'hui</span><span>8 mars 2027</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stats-inner">
+      <div class="stat-item reveal">
+        <div class="stat-number">2 800+</div>
+        <div class="stat-label">mamans inscrites en pré-lancement</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number">8 mars</div>
+        <div class="stat-label">date de lancement officiel</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">espace sécurisé & sans jugement</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-number">5</div>
+        <div class="stat-label">fonctionnalités dès la V1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STORIES -->
+  <section class="stories-section">
+    <div class="stories-header reveal">
+      <span class="section-label">Stories</span>
+      <h2 class="section-title">Des moments éphémères,<br>des liens durables.</h2>
+      <p class="section-sub" style="margin:0 auto;">Partagez votre quotidien de maman en stories — photos, textes, humeurs du jour. Visibles 24h, pour rester proche sans se mettre de pression.</p>
+    </div>
+
+    <div class="stories-track reveal">
+      <!-- Add story -->
+      <div class="story-bubble story-add" onclick="openStory(0)">
+        <div class="story-ring"><div class="story-avatar">＋</div></div>
+        <div class="story-name">Ma story</div>
+      </div>
+      <div class="story-bubble" onclick="openStory(0)">
+        <div class="story-ring"><div class="story-avatar">🤱</div></div>
+        <div class="story-name">Sophie M.</div>
+      </div>
+      <div class="story-bubble" onclick="openStory(1)">
+        <div class="story-ring"><div class="story-avatar">🌸</div></div>
+        <div class="story-name">Amira K.</div>
+      </div>
+      <div class="story-bubble" onclick="openStory(2)">
+        <div class="story-ring"><div class="story-avatar">👶</div></div>
+        <div class="story-name">Claire D.</div>
+      </div>
+      <div class="story-bubble" onclick="openStory(3)">
+        <div class="story-ring"><div class="story-avatar">🍼</div></div>
+        <div class="story-name">Lucie T.</div>
+      </div>
+      <div class="story-bubble" onclick="openStory(0)">
+        <div class="story-ring seen"><div class="story-avatar">💗</div></div>
+        <div class="story-name">Marie P.</div>
+      </div>
+      <div class="story-bubble" onclick="openStory(1)">
+        <div class="story-ring seen"><div class="story-avatar">🌷</div></div>
+        <div class="story-name">Inès R.</div>
+      </div>
+      <div class="story-bubble" onclick="openStory(2)">
+        <div class="story-ring"><div class="story-avatar">✨</div></div>
+        <div class="story-name">Fatima L.</div>
+      </div>
+      <div class="story-bubble" onclick="openStory(3)">
+        <div class="story-ring"><div class="story-avatar">🌙</div></div>
+        <div class="story-name">Nadia B.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story modal -->
+  <div class="story-modal" id="storyModal">
+    <div class="story-viewer">
+      <div class="sv-bg" id="svBg"></div>
+      <div class="story-progress" id="storyProgress"></div>
+      <div class="sv-head">
+        <div class="sv-avatar" id="svAvatar"></div>
+        <div>
+          <div class="sv-name" id="svName"></div>
+          <div class="sv-time">il y a 2h</div>
+        </div>
+        <button class="sv-close" onclick="closeStory()">✕</button>
+      </div>
+      <div class="sv-content">
+        <div class="sv-emoji" id="svEmoji"></div>
+        <div class="sv-text" id="svText"></div>
+        <div class="sv-sub" id="svSub"></div>
+      </div>
+      <div class="sv-nav">
+        <div class="sv-nav-l" onclick="prevSlide()"></div>
+        <div class="sv-nav-r" onclick="nextSlide()"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIL D'ACTUALITÉ -->
+  <section class="feed-section" id="feed">
+    <div class="feed-header reveal">
+      <span class="section-label">Fil d'actualité</span>
+      <h2 class="section-title">Tout ce qui compte,<br>au même endroit.</h2>
+      <p class="section-sub" style="margin:0 auto;">Publications, ventes, stories, entraide — votre fil regroupe tout ce qui rend la communauté Mumpower unique et vivante.</p>
+    </div>
+
+    <div class="feed-layout">
+      <div class="feed-mockup reveal">
+        <div class="feed-topbar">
+          <div class="feed-topbar-title">🌸 Fil Mumpower</div>
+          <div class="feed-topbar-icons">🔔 💬</div>
+        </div>
+
+        <!-- Stories mini -->
+        <div class="feed-stories-row">
+          <div class="fsr-item">
+            <div class="fsr-ring"><div class="fsr-inner">＋</div></div>
+            <div class="fsr-label">Ma story</div>
+          </div>
+          <div class="fsr-item">
+            <div class="fsr-ring"><div class="fsr-inner">🤱</div></div>
+            <div class="fsr-label">Sophie</div>
+          </div>
+          <div class="fsr-item">
+            <div class="fsr-ring"><div class="fsr-inner">🌸</div></div>
+            <div class="fsr-label">Amira</div>
+          </div>
+          <div class="fsr-item">
+            <div class="fsr-ring seen"><div class="fsr-inner">👶</div></div>
+            <div class="fsr-label">Claire</div>
+          </div>
+          <div class="fsr-item">
+            <div class="fsr-ring"><div class="fsr-inner">💗</div></div>
+            <div class="fsr-label">Marie</div>
+          </div>
+          <div class="fsr-item">
+            <div class="fsr-ring"><div class="fsr-inner">✨</div></div>
+            <div class="fsr-label">Fatima</div>
+          </div>
+        </div>
+
+        <!-- Post 1 : social -->
+        <div class="feed-post">
+          <div class="fpost-head">
+            <div class="fpost-avatar" style="background:#E8A0BF;">S</div>
+            <div>
+              <div class="fpost-name">Sophie M.</div>
+              <div class="fpost-meta">🌸 Future maman · 7 mois · il y a 12 min</div>
+            </div>
+            <span class="fpost-badge badge-social">💬 Social</span>
+          </div>
+          <div class="fpost-text">Nuit de 4h avec mon petit dernier 😅 Qui a un conseil pour les poussées dentaires ? Je suis à bout ! 💗</div>
+          <div class="fpost-img" style="background:linear-gradient(135deg,#FADADD,#F8C8DC);">🌙</div>
+          <div class="fpost-actions">
+            <div class="fpost-action liked" onclick="this.classList.toggle('liked')">💗 24</div>
+            <div class="fpost-action">💬 8 réponses</div>
+            <div class="fpost-action">↗ Partager</div>
+          </div>
+        </div>
+
+        <!-- Post 2 : vente -->
+        <div class="feed-post">
+          <div class="fpost-head">
+            <div class="fpost-avatar" style="background:#D4749A;">C</div>
+            <div>
+              <div class="fpost-name">Claire D.</div>
+              <div class="fpost-meta">🛍️ Vente · il y a 1h</div>
+            </div>
+            <span class="fpost-badge badge-vente">🛍️ Vente</span>
+          </div>
+          <div class="fpost-product">
+            <div class="fpost-prod-img" style="background:linear-gradient(135deg,#F8C8DC,#E8A0BF);">👗</div>
+            <div>
+              <div class="fpost-prod-name">Lot de bodies 3-6 mois</div>
+              <div class="fpost-prod-price">8 € · Très bon état</div>
+              <div class="fpost-prod-cond">📍 Lyon · Remise en main propre</div>
+            </div>
+          </div>
+          <div class="fpost-actions">
+            <div class="fpost-action">💗 5</div>
+            <div class="fpost-action">💌 Contacter Claire</div>
+          </div>
+        </div>
+
+        <!-- Post 3 : entraide -->
+        <div class="feed-post">
+          <div class="fpost-head">
+            <div class="fpost-avatar" style="background:#C25A85;">A</div>
+            <div>
+              <div class="fpost-name">Amira K.</div>
+              <div class="fpost-meta">🤝 Entraide · il y a 3h</div>
+            </div>
+            <span class="fpost-badge badge-aide">🤝 Entraide</span>
+          </div>
+          <div class="fpost-text">Qui connaît une bonne sage-femme à domicile sur Paris 15e ? Mon accouchement approche et je suis un peu perdue 🥹</div>
+          <div class="fpost-actions">
+            <div class="fpost-action">💗 31</div>
+            <div class="fpost-action">💬 14 réponses</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="feed-features-col reveal">
+        <div class="ffc-item">
+          <div class="ffc-icon">📰</div>
+          <div>
+            <div class="ffc-title">Publications & photos</div>
+            <div class="ffc-desc">Partagez vos moments, vos questions, vos joies. Textes et photos bienvenus dans une atmosphère sans toxicité.</div>
+          </div>
+        </div>
+        <div class="ffc-item">
+          <div class="ffc-icon">✨</div>
+          <div>
+            <div class="ffc-title">Stories 24h</div>
+            <div class="ffc-desc">Des instants de vie éphémères. Une photo, un ressenti du jour — puis ça disparaît. Légèreté garantie.</div>
+          </div>
+        </div>
+        <div class="ffc-item">
+          <div class="ffc-icon">🛍️</div>
+          <div>
+            <div class="ffc-title">Ventes intégrées</div>
+            <div class="ffc-desc">Les annonces de vente apparaissent directement dans le fil. Plus besoin de changer d'app pour vendre ou acheter.</div>
+          </div>
+        </div>
+        <div class="ffc-item">
+          <div class="ffc-icon">🤝</div>
+          <div>
+            <div class="ffc-title">Entraide & conseils</div>
+            <div class="ffc-desc">Posez vos questions, proposez votre aide. La communauté répond toujours avec douceur et bienveillance.</div>
+          </div>
+        </div>
+        <div class="ffc-item">
+          <div class="ffc-icon">💗</div>
+          <div>
+            <div class="ffc-title">Likes & commentaires</div>
+            <div class="ffc-desc">Montrez votre soutien d'un cœur, répondez avec tendresse. Chaque interaction renforce le lien entre mamans.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="features" id="features">
+    <div class="features-header reveal">
+      <span class="section-label">La plateforme</span>
+      <h2 class="section-title">Tout ce dont vous avez besoin,<br>en un seul endroit.</h2>
+      <p class="section-sub" style="margin: 0 auto;">Un espace pensé avec soin, où chaque fonctionnalité répond à un besoin réel de la vie de maman.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <span class="feature-icon">👩‍👧</span>
+        <div class="feature-title">Profil personnalisé</div>
+        <div class="feature-desc">Photo, bio, ville et statut — maman ou future maman. Votre espace, votre histoire, à votre image.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">📰</span>
+        <div class="feature-title">Fil d'actualité</div>
+        <div class="feature-desc">Publications, stories éphémères, likes et commentaires dans un environnement 100% bienveillant et sans toxicité.</div>
+      </div>
+      <div class="feature-card highlight reveal">
+        <span class="feature-icon">🆘</span>
+        <div class="feature-title">Module d'aide discret</div>
+        <div class="feature-desc">L'ADN émotionnel de Mumpower. Un accès discret à des ressources et à une orientation vers des structures adaptées pour les mamans en difficulté.</div>
+        <span class="feature-tag">Valeur forte ✨</span>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">💌</span>
+        <div class="feature-title">Messagerie privée</div>
+        <div class="feature-desc">Des conversations sécurisées, intimes. Pour créer de vrais liens, pas juste des abonnements.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feature-icon">🛍️</span>
+        <div class="feature-title">Espace vente</div>
+        <div class="feature-desc">Vendre et acheter entre mamans — vêtements bébé, matériel, jeux. Simple, direct, humain.</div>
+      </div>
+      <div class="feature-card reveal" style="background: var(--rose-ultra-light);">
+        <span class="feature-icon">🚀</span>
+        <div class="feature-title">Bientôt sur Mumpower</div>
+        <div class="feature-desc">Groupes privés par thème, réservation de services (nounous, coiffeuses...), événements locaux, abonnement premium.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMOTIONAL -->
+  <section class="emotional" id="valeurs">
+    <div class="emotional-inner">
+      <div class="emotional-quotes">
+        <div class="quote-card reveal">
+          "J'avais l'impression d'être la seule à galérer. Grâce à Mumpower, j'ai réalisé qu'on est des milliers à traverser les mêmes choses."
+          <div class="quote-author">— Léa, maman de 2 enfants</div>
+        </div>
+        <div class="quote-card reveal">
+          "Enfin un endroit où je peux poser mes doutes sans avoir peur d'être jugée. C'est rare et précieux."
+          <div class="quote-author">— Amira, future maman</div>
+        </div>
+        <div class="quote-card reveal">
+          "J'ai vendu la poussette de mon aîné en 2 heures, et j'ai eu une vraie conversation avec l'acheteuse. Ce n'est pas juste une marketplace."
+          <div class="quote-author">— Claire, maman solo</div>
+        </div>
+      </div>
+      <div class="emotional-text reveal">
+        <span class="section-label">Notre promesse</span>
+        <h2 class="section-title">Un cocon digital,<br>pas un réseau de plus.</h2>
+        <p class="section-sub">Mumpower n'est pas juste une application. C'est une communauté engagée, pensée par des mamans, pour des mamans — avec une attention particulière pour celles qui traversent des moments difficiles.</p>
+        <div class="values-list">
+          <div class="value-item">
+            <div class="value-icon">💗</div>
+            <span>Bienveillance radicale, zéro jugement</span>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🔒</div>
+            <span>Espace sécurisé et confidentiel</span>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">🤝</div>
+            <span>Entraide vraie entre membres</span>
+          </div>
+          <div class="value-item">
+            <div class="value-icon">✨</div>
+            <span>Inclusif, accessible, inspirant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAUNCH / WAITLIST -->
+  <section class="launch" id="rejoindre">
+    <div style="position:relative;z-index:1;">
+      <div class="launch-date reveal">🌸 Lancement le 8 mars 2027</div>
+      <h2 class="launch-title reveal">Rejoignez le mouvement<br><em style="font-style:italic;color:var(--rose-deep)">Mumpower</em></h2>
+      <p class="launch-sub reveal">Soyez parmi les premières à accéder à la plateforme. Inscrivez-vous dès maintenant pour rejoindre la liste d'attente.</p>
+      <div class="waitlist-form reveal">
+        <div class="waitlist-row">
+          <input type="text" class="waitlist-input" placeholder="Nom" id="nomInput" />
+          <input type="text" class="waitlist-input" placeholder="Prénom" id="prenomInput" />
+        </div>
+        <div class="waitlist-row">
+          <input type="email" class="waitlist-input" placeholder="Votre adresse email" id="emailInput" />
+          <button class="btn-primary" id="waitlistBtn" onclick="handleSignup()">💗 Je rejoins</button>
+        </div>
+      </div>
+      <p class="success-msg" id="successMsg">🎉 Merci ! Vous êtes sur la liste. On vous contacte bientôt !</p>
+      <p id="errorMsg" style="display:none;color:var(--rose-deep);font-size:0.82rem;margin-top:0.6rem;">Oups, une erreur s'est produite. Réessayez dans quelques instants. 💗</p>
+      <p class="waitlist-note reveal">Aucun spam. Juste les bonnes nouvelles au bon moment. 💌</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🌸 Mumpower</div>
+    <p class="footer-tagline">Bien plus qu'une application. Une communauté.</p>
+    <ul class="footer-links">
+      <li><a href="#">À propos</a></li>
+      <li><a href="#">Confidentialité</a></li>
+      <li><a href="#">CGU</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Instagram</a></li>
+    </ul>
+    <p class="footer-copy">© 2027 Mumpower. Fait avec 💗 pour toutes les mamans du monde.</p>
+  </footer>
+
+  <!-- ─── MAINTENANCE PAGE (cachée par défaut) ─── -->
+  <div id="maintenance-page" style="display:none;">
+    <style>
+      #maintenance-page {
+        position: fixed; inset: 0; z-index: 9999;
+        background: #FFF5F7;
+        display: flex; align-items: center; justify-content: center;
+        padding: 2rem;
+        font-family: 'Poppins', sans-serif;
+      }
+      .maint-card {
+        background: white;
+        border-radius: 28px;
+        padding: 3.5rem 3rem;
+        text-align: center;
+        max-width: 460px; width: 100%;
+        box-shadow: 0 20px 60px rgba(212,116,154,0.12);
+        border: 1.5px solid rgba(248,200,220,0.4);
+      }
+      .maint-flower {
+        font-size: 2.8rem; margin-bottom: 1.2rem; display: block;
+        animation: mBreath 3s ease-in-out infinite;
+      }
+      @keyframes mBreath {
+        0%,100% { transform: scale(1); }
+        50% { transform: scale(1.08); }
+      }
+      .maint-card h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.7rem; color: #2E2E2E;
+        margin-bottom: 0.8rem; line-height: 1.25;
+      }
+      .maint-card p {
+        font-size: 0.9rem; color: #6B6B6B;
+        line-height: 1.7; margin-bottom: 1.5rem;
+      }
+      .maint-divider {
+        width: 48px; height: 3px; border-radius: 10px;
+        background: linear-gradient(90deg, #E8A0BF, #D4749A);
+        margin: 0 auto 1.8rem;
+      }
+      .maint-status {
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        background: #FFF0F3; border: 1.5px solid #FADADD;
+        border-radius: 50px; padding: 0.55rem 1.2rem;
+        font-size: 0.8rem; font-weight: 600; color: #D4749A;
+        margin-bottom: 1.8rem;
+      }
+      .maint-dot {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: #E8A0BF;
+        animation: mPulse 2s ease-in-out infinite;
+      }
+      @keyframes mPulse {
+        0%,100% { box-shadow: 0 0 0 2px rgba(232,160,191,0.3); }
+        50% { box-shadow: 0 0 0 5px rgba(232,160,191,0.1); }
+      }
+      .maint-label {
+        font-size: 0.78rem; color: #6B6B6B; margin-bottom: 0.6rem; display: block;
+      }
+      .maint-form { display: flex; gap: 0.6rem; }
+      .maint-input {
+        flex: 1; padding: 0.75rem 1.1rem;
+        border: 1.5px solid rgba(232,160,191,0.4);
+        border-radius: 50px; font-family: 'Poppins', sans-serif;
+        font-size: 0.85rem; color: #2E2E2E; outline: none;
+        transition: border-color 0.2s;
+      }
+      .maint-input:focus { border-color: #E8A0BF; }
+      .maint-input::placeholder { color: #ccc; }
+      .maint-btn {
+        background: linear-gradient(135deg, #E8A0BF, #D4749A);
+        color: white; border: none; cursor: pointer;
+        padding: 0.75rem 1.4rem; border-radius: 50px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.85rem; font-weight: 600;
+        transition: transform 0.2s, box-shadow 0.2s;
+        white-space: nowrap;
+      }
+      .maint-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,116,154,0.3); }
+      .maint-success { display: none; color: #D4749A; font-size: 0.85rem; font-weight: 600; margin-top: 0.8rem; }
+      .maint-footer { margin-top: 2rem; font-size: 0.75rem; color: #bbb; }
+    </style>
+    <div class="maint-card">
+      <span class="maint-flower">🌸</span>
+      <div class="maint-status"><div class="maint-dot"></div> Maintenance en cours</div>
+      <h1>On revient très vite.</h1>
+      <div class="maint-divider"></div>
+      <p>Mumpower est temporairement indisponible pour une petite mise à jour. Merci pour votre patience — on prend soin de tout pour vous offrir la meilleure expérience. 💗</p>
+      <span class="maint-label">Être notifiée dès le retour :</span>
+      <div class="maint-form">
+        <input type="email" class="maint-input" placeholder="Votre email" id="maintEmail" />
+        <button class="maint-btn" onclick="maintSubmit()">Notifier</button>
+      </div>
+      <p class="maint-success" id="maintOk">✓ Noté ! On vous prévient dès que c'est bon. 🌸</p>
+      <p class="maint-footer">© 2027 Mumpower — Fait avec 💗</p>
+    </div>
+  </div>
+
+  <script>
+    // ─── Affichage conditionnel
+    if (MAINTENANCE_MODE) {
+      document.getElementById('maintenance-page').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function maintSubmit() {
+      const v = document.getElementById('maintEmail').value;
+      if (!v || !v.includes('@')) return;
+      document.querySelector('.maint-form').style.display = 'none';
+      document.querySelector('.maint-label').style.display = 'none';
+      document.getElementById('maintOk').style.display = 'block';
+    }
+    document.getElementById('maintEmail')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') maintSubmit();
+    });
+  </script>
+
+  <script>
+    // ─── Countdown
+    const launchDate = new Date("March 8, 2027 00:00:00").getTime();
+    const startDate = new Date("March 4, 2026 00:00:00").getTime(); // approx start
+    const totalDuration = launchDate - startDate;
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function animateFlip(id, newVal) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.textContent === newVal) return;
+      el.classList.add('flip');
+      setTimeout(() => {
+        el.textContent = newVal;
+        el.classList.remove('flip');
+      }, 150);
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = launchDate - now;
+      if (distance < 0) {
+        document.getElementById('countdown').innerHTML = '<div style="font-size:1.5rem;font-weight:700;color:var(--rose-deep);text-align:center;">🚀 Mumpower est en ligne !</div>';
+        return;
+      }
+      const days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      animateFlip('cd-days',    pad(days));
+      animateFlip('cd-hours',   pad(hours));
+      animateFlip('cd-minutes', pad(minutes));
+      animateFlip('cd-seconds', pad(seconds));
+
+      // Progress bar
+      const elapsed = now - startDate;
+      const pct = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+      const fill = document.getElementById('cdProgressFill');
+      if (fill) fill.style.width = pct.toFixed(2) + '%';
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ─── Stories
+    const storyData = [
+      { slides: [
+        { bg: 'linear-gradient(160deg,#FADADD,#F8C8DC,#E8A0BF)', emoji: '🤱', text: 'Semaine 32 ✨', sub: 'Je sens ses petits coups de pied toute la nuit 💗' },
+        { bg: 'linear-gradient(160deg,#F8C8DC,#E8A0BF,#D4749A)', emoji: '🛁', text: 'Premier bain du soir', sub: 'La routine qui nous apaise toutes les deux 🌙' },
+      ], name: 'Sophie M.', avatar: '🤱' },
+      { slides: [
+        { bg: 'linear-gradient(160deg,#E8A0BF,#D4749A,#C25A85)', emoji: '☕', text: 'Pause café méritée', sub: 'Bébé dort… j\'en profite ! 😅' },
+        { bg: 'linear-gradient(160deg,#FADADD,#E8A0BF)', emoji: '💌', text: 'Merci Mumpower', sub: 'Grâce à vous je me sens moins seule 💗' },
+      ], name: 'Amira K.', avatar: '🌸' },
+      { slides: [
+        { bg: 'linear-gradient(160deg,#D4749A,#C25A85,#A03060)', emoji: '🛍️', text: 'Vide-dressing bébé', sub: 'Tout vendu en 2h grâce à Mumpower 🎉' },
+      ], name: 'Claire D.', avatar: '👶' },
+      { slides: [
+        { bg: 'linear-gradient(160deg,#FFF0F3,#FADADD,#F8C8DC)', emoji: '🌙', text: 'Nuit blanche n°3', sub: 'Mais ce sourire du matin efface tout 😍' },
+        { bg: 'linear-gradient(160deg,#F8C8DC,#FADADD)', emoji: '🍼', text: 'Allaitement : 6 mois !', sub: 'Petite victoire du jour 💪' },
+      ], name: 'Lucie T.', avatar: '🍼' },
+    ];
+    let currentStory = 0, currentSlide = 0, storyTimer = null;
+
+    function openStory(idx) {
+      currentStory = idx % storyData.length;
+      currentSlide = 0;
+      renderSlide();
+      document.getElementById('storyModal').classList.add('open');
+    }
+    function closeStory() {
+      document.getElementById('storyModal').classList.remove('open');
+      clearTimeout(storyTimer);
+    }
+    function renderSlide() {
+      clearTimeout(storyTimer);
+      const s = storyData[currentStory];
+      const sl = s.slides[currentSlide];
+      document.getElementById('svBg').style.background = sl.bg;
+      document.getElementById('svEmoji').textContent = sl.emoji;
+      document.getElementById('svText').textContent = sl.text;
+      document.getElementById('svSub').textContent = sl.sub;
+      document.getElementById('svName').textContent = s.name;
+      document.getElementById('svAvatar').textContent = s.avatar;
+      const prog = document.getElementById('storyProgress');
+      prog.innerHTML = '';
+      s.slides.forEach((_, i) => {
+        const b = document.createElement('div'); b.className = 'spb';
+        const f = document.createElement('div'); f.className = 'fill'; b.appendChild(f);
+        if (i < currentSlide) b.classList.add('done');
+        if (i === currentSlide) b.classList.add('active');
+        prog.appendChild(b);
+      });
+      storyTimer = setTimeout(nextSlide, 4100);
+    }
+    function nextSlide() {
+      const s = storyData[currentStory];
+      if (currentSlide < s.slides.length - 1) { currentSlide++; renderSlide(); }
+      else { currentStory = (currentStory + 1) % storyData.length; currentSlide = 0; renderSlide(); }
+    }
+    function prevSlide() {
+      if (currentSlide > 0) { currentSlide--; renderSlide(); }
+      else { currentStory = (currentStory - 1 + storyData.length) % storyData.length; currentSlide = 0; renderSlide(); }
+    }
+    document.getElementById('storyModal').addEventListener('click', function(e) {
+      if (e.target === this) closeStory();
+    });
+
+    // ─── Petals animation
+    const petalsContainer = document.getElementById('petals');
+    const petalSymbols = ['🌸', '✿', '🌷', '❀'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = petalSymbols[Math.floor(Math.random() * petalSymbols.length)];
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (12 + Math.random() * 18) + 's';
+      p.style.animationDelay = (Math.random() * 20) + 's';
+      p.style.fontSize = (0.7 + Math.random() * 1.2) + 'rem';
+      petalsContainer.appendChild(p);
+    }
+
+    // ─── Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // ─── Waitlist (Formspree)
+    // 👉 Remplace XXXXXXXX par ton ID Formspree (ex: xpzvbkdo)
+    const FORMSPREE_ID = 'REMPLACE_PAR_TON_ID_FORMSPREE';
+
+    async function handleSignup() {
+      const nomInput    = document.getElementById('nomInput');
+      const prenomInput = document.getElementById('prenomInput');
+      const emailInput  = document.getElementById('emailInput');
+      const btn         = document.getElementById('waitlistBtn');
+      const nom    = nomInput.value.trim();
+      const prenom = prenomInput.value.trim();
+      const email  = emailInput.value.trim();
+
+      // Validation
+      let valid = true;
+      if (!nom)    { nomInput.style.borderColor    = '#E8A0BF'; valid = false; } else { nomInput.style.borderColor = ''; }
+      if (!prenom) { prenomInput.style.borderColor = '#E8A0BF'; valid = false; } else { prenomInput.style.borderColor = ''; }
+      if (!email || !email.includes('@')) { emailInput.style.borderColor = '#E8A0BF'; valid = false; } else { emailInput.style.borderColor = ''; }
+      if (!valid) return;
+
+      btn.textContent = '⏳ Envoi…';
+      btn.disabled = true;
+      [nomInput, prenomInput, emailInput].forEach(i => i.disabled = true);
+
+      try {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ nom, prenom, email, source: 'landing-waitlist' })
+        });
+        if (res.ok) {
+          document.querySelector('.waitlist-form').style.display = 'none';
+          document.getElementById('successMsg').style.display = 'block';
+          document.getElementById('successMsg').textContent = `🎉 Merci ${prenom} ! Vous êtes sur la liste. On vous contacte bientôt 💗`;
+        } else { throw new Error(); }
+      } catch {
+        btn.textContent = '💗 Je rejoins';
+        btn.disabled = false;
+        [nomInput, prenomInput, emailInput].forEach(i => i.disabled = false);
+        document.getElementById('errorMsg').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
