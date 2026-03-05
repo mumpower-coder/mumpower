@@ -1527,9 +1527,8 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    // ─── Waitlist (Formspree)
-    // 👉 Remplace XXXXXXXX par ton ID Formspree (ex: xpzvbkdo)
-    const FORMSPREE_ID = 'meerjrdb';
+    // ─── Waitlist (Web3Forms)
+    const WEB3FORMS_KEY = 'c144b169-63d7-4934-8d2a-10b14ab6448d';
 
     async function handleSignup() {
       const nomInput    = document.getElementById('nomInput');
@@ -1540,7 +1539,6 @@
       const prenom = prenomInput.value.trim();
       const email  = emailInput.value.trim();
 
-      // Validation
       let valid = true;
       if (!nom)    { nomInput.style.borderColor    = '#E8A0BF'; valid = false; } else { nomInput.style.borderColor = ''; }
       if (!prenom) { prenomInput.style.borderColor = '#E8A0BF'; valid = false; } else { prenomInput.style.borderColor = ''; }
@@ -1552,12 +1550,18 @@
       [nomInput, prenomInput, emailInput].forEach(i => i.disabled = true);
 
       try {
-        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ nom, prenom, email, source: 'landing-waitlist' })
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: '🌸 Nouvelle inscription Mumpower !',
+            nom, prenom, email,
+            source: 'landing-waitlist'
+          })
         });
-        if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
           document.querySelector('.waitlist-form').style.display = 'none';
           document.getElementById('successMsg').style.display = 'block';
           document.getElementById('successMsg').textContent = `🎉 Merci ${prenom} ! Vous êtes sur la liste. On vous contacte bientôt 💗`;
